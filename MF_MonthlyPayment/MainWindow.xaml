@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MF_MonthlyPayment"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <StackPanel Margin="9">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="3" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="3" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="内容" />
+            <TextBox Grid.Column="1" Grid.Row="0" />
+            <TextBlock Grid.Row="1" Text="金額" />
+            <TextBox Grid.Column="1" Grid.Row="1" />
+            <TextBlock Grid.Row="2" Text="回数" />
+            <TextBox Grid.Column="1" Grid.Row="2" />
+            <TextBlock Grid.Row="3" Text="大項目" />
+            <TextBox Grid.Column="1" Grid.Row="3" />
+            <TextBlock Grid.Row="4" Text="中項目" />
+            <TextBox Grid.Column="1" Grid.Row="4" />
+        </Grid>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Content="Create" Width="75" IsDefault="True" Margin="3" />
+        </StackPanel>
+    </StackPanel>
 </Window>
