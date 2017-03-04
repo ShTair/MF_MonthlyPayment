@@ -20,24 +20,24 @@ namespace MF_MonthlyPayment.Models
 
         public string Kind2 { get; set; }
 
-        public class PaymentItemMap : CsvClassMap<PaymentItem>
+        public class Map : CsvClassMap<PaymentItem>
         {
-            public PaymentItemMap()
+            public Map()
             {
                 Map(m => m.IsEnable).Name("計算対象").TypeConverter<IsEnableTypeConverter>();
                 Map(m => m.Date).Name("日付").TypeConverter<DateTypeConverter>();
                 Map(m => m.Content).Name("内容");
                 Map(m => m.Amount).Name("金額");
-                Map(m => m.Bank).Name("保有金融機関");
+                Map(m => m.Bank).Name("金融機関");
                 Map(m => m.Kind1).Name("大項目");
                 Map(m => m.Kind2).Name("中項目");
             }
 
             private abstract class TypeConverter<T> : ITypeConverter
             {
-                public bool CanConvertFrom(Type type) => type == typeof(T);
+                public bool CanConvertFrom(Type type) => true;
 
-                public bool CanConvertTo(Type type) => type == typeof(T);
+                public bool CanConvertTo(Type type) => true;
 
                 public object ConvertFromString(TypeConverterOptions options, string text) => ConvertTypeFromString(options, text);
 

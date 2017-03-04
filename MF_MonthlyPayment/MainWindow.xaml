@@ -41,7 +41,7 @@
             <TextBox Grid.Column="1" Grid.Row="4" />
         </Grid>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Content="Create" Width="75" IsDefault="True" Margin="3" />
+            <Button Content="Create" Width="75" IsDefault="True" Margin="3" Click="Button_Click" />
         </StackPanel>
     </StackPanel>
 </Window>

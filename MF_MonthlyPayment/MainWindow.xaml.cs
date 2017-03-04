@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CsvHelper;
+using MF_MonthlyPayment.Models;
+using System;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MF_MonthlyPayment
 {
@@ -23,6 +14,18 @@ namespace MF_MonthlyPayment
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var writer = File.CreateText("test.txt"))
+            using (var csv = new CsvWriter(writer))
+            {
+                csv.Configuration.RegisterClassMap<PaymentItem.Map>();
+
+                csv.WriteHeader<PaymentItem>();
+                csv.WriteRecord(new PaymentItem { Amount = 1000, Date = DateTime.Now });
+            }
         }
     }
 }
