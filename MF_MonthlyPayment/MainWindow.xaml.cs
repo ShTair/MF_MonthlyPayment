@@ -28,7 +28,7 @@ namespace MF_MonthlyPayment
                 csv.Configuration.RegisterClassMap<PaymentItem.Map>();
 
                 csv.WriteHeader<PaymentItem>();
-                csv.WriteRecords(CreateItems(nm, "test", 1000, 24, "a", "b"));
+                csv.WriteRecords(CreateItems(nm, "ドメイン1", 270, 1, "通信費", "情報サービス"));
             }
         }
 
@@ -62,7 +62,34 @@ namespace MF_MonthlyPayment
                 };
 
                 amount -= v;
-                date = start.AddMonths(i + 1);
+
+                var next = start.AddMonths(i + 1);
+                if (next > limit)
+                {
+                    yield return new PaymentItem
+                    {
+                        Date = date,
+                        Content = content,
+                        Amount = -amount,
+                        Bank = "前払いプール",
+                        Kind1 = kind1,
+                        Kind2 = kind2,
+                    };
+
+                    yield return new PaymentItem
+                    {
+                        Date = date,
+                        Content = content,
+                        Amount = amount,
+                        Bank = "前払い元",
+                        Kind1 = "収入",
+                        Kind2 = "その他入金",
+                    };
+
+                    break;
+                }
+
+                date = next;
             }
         }
     }
