@@ -20,7 +20,7 @@ namespace MF_MonthlyPayment
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var today = DateTime.Today;
-            var nm = today.AddDays(1 - today.Day).AddMonths(1);
+            var nm = today.AddDays(1 - today.Day);
 
             using (var writer = File.CreateText("test.txt"))
             using (var csv = new CsvWriter(writer))
@@ -28,7 +28,7 @@ namespace MF_MonthlyPayment
                 csv.Configuration.RegisterClassMap<PaymentItem.Map>();
 
                 csv.WriteHeader<PaymentItem>();
-                csv.WriteRecords(CreateItems(nm, "ドメイン1", 270, 1, "通信費", "情報サービス"));
+                csv.WriteRecords(CreateItems(nm, ContentBox.Text, int.Parse(AmountBox.Text), int.Parse(CountBox.Text), Kind1Box.Text, Kind2Box.Text));
             }
         }
 
@@ -69,7 +69,7 @@ namespace MF_MonthlyPayment
                     yield return new PaymentItem
                     {
                         Date = date,
-                        Content = content,
+                        Content = $"{content} 残り{count - i - 1}回",
                         Amount = -amount,
                         Bank = "前払いプール",
                         Kind1 = kind1,
@@ -79,7 +79,7 @@ namespace MF_MonthlyPayment
                     yield return new PaymentItem
                     {
                         Date = date,
-                        Content = content,
+                        Content = $"{content} 残り{count - i - 1}回",
                         Amount = amount,
                         Bank = "前払い元",
                         Kind1 = "収入",
